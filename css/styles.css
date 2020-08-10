@@ -1,0 +1,12 @@
+body{
+  display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-image: url(../img/background.jpg);
+  background-size: cover;
+
+}
+h1{
+    color: white;
+}

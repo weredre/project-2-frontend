@@ -21,22 +21,22 @@ const $ul = $("ul");
 /////////////////////////////
 //DEFINE FUNCTIONS HERE
 
-// //GET PIZZA FROM API AND POPULATE SELECTOR INPUT
-// const getCharacters = async () => {
-//   //API CALL USING ASYNC/AWAIT
-//   const response = await fetch(`${URL}/characters`);
-//   const data = await response.json();
-//
-//   //POPULATE SELECTOR WITH RETRIEVED DATA
-//   // create an option tag for each pizza we collect
-//   data.forEach((characters) => {
-//       const $option = $('<option>').attr('value', characters._id).text(characters.name)
-//       characters.append($option);
-//
-//       const $option2 = $('<option>').attr('value', characters._id).text(characters.name)
-//       $characterEditSelect.append($option2);
-//   });
-// };
+//GET PIZZA FROM API AND POPULATE SELECTOR INPUT
+const getCharactersNpc = async () => {
+  //API CALL USING ASYNC/AWAIT
+  const response = await fetch(`${URL}/characters`);
+  const data = await response.json();
+
+  //POPULATE SELECTOR WITH RETRIEVED DATA
+  // create an option tag for each pizza we collect
+  data.forEach((characters) => {
+      const $option = $('<option>').attr('value', characters._id).text(characters.isNPC)
+      characters.append($option);
+
+      const $option2 = $('<option>').attr('value', characters._id).text(characters.isNPC)
+      $characterEditSelect.append($option2);
+  });
+};
 
 // GET ALL RATS
 const getCharacters = async () => {
@@ -55,8 +55,8 @@ const getCharacters = async () => {
     // add an edit button for each rat
     $li.append($('<button>').text("edit").on('click', (event) => {
       $nameEditInput.val(character.name);
-      $characterEditSelect.val(characters._id);
-      $editButton.attr("id", characters._id)
+      $characterEditSelect.val(character._id);
+      $editButton.attr("id", character._id)
     }))
     $ul.append($li)
   })
@@ -67,12 +67,12 @@ const getCharacters = async () => {
 const createCharater = async () => {
   // create new rat object from form data
   const newCharacter = {
-    "name": $nameInput.val(),
+    "name": $characterInput.val(),
     // "": $pizzaSelect.val()
   }
 
   // send request to API to create rat
-  const response = await fetch(`${URL}/stat`, {
+  const response = await fetch(`${URL}/character`, {
     method: 'POST',
     // let server know to parse body as JSON data
       // Postman makes headers for the user; next to "body"
@@ -94,7 +94,7 @@ const createCharater = async () => {
 const deleteCharacter = async (event) => {
   //make request to delete rate
   // each rat that gets created will get a button
-  const response = await fetch(`${URL}/rat/${event.target.id}`, {
+  const response = await fetch(`${URL}/character/${event.target.id}`, {
     method: "delete"
     // nothing else in function bc no response needed
   })
@@ -111,7 +111,7 @@ const updatedCharacter = async (event) => {
     // pizza: $pizzaEditSelect.val()
   }
   // make our put request
-  const response = await fetch(`${URL}/characters/${event.target.id}`, {
+  const response = await fetch(`${URL}/character/${event.target.id}`, {
     method: "put",
     headers: {
       "Content-Type": "application/json"
