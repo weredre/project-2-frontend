@@ -1,12 +1,18 @@
 ///////////////////////
 //SET URL SO IT USES DEPLOYED API URL IF IT EXISTS, LOCALHOST IF IT DOESN'T
-const deployedURL = "http://localhost:3000";
+const deployedURL = "https://project-2-back-end.herokuapp.com";
 const URL = deployedURL ? deployedURL : "http://localhost:3000";
 
 ///////////////////////
 //GLOBAL VARIABLES
 //////////////////////
 const $characterInput = $("#createinput");
+const $strInput = $("#createSTRinput");
+const $aglInput = $("#createAGLinput");
+const $wilInput = $("#createWILinput");
+const $logInput = $("#createLOGinput");
+const $chaInput = $("#createCHAinput");
+const $edgInput = $("#createEDGinput");
 const $characterSelect = $("#createselect");
 // button with the property create
 const $button = $("#createbutton");
@@ -24,7 +30,7 @@ const $ul = $("ul");
 //GET PIZZA FROM API AND POPULATE SELECTOR INPUT
 const getCharactersNpc = async () => {
   //API CALL USING ASYNC/AWAIT
-  const response = await fetch(`${URL}/characters`);
+  const response = await fetch(`${URL}/character`);
   const data = await response.json();
 
   //POPULATE SELECTOR WITH RETRIEVED DATA
@@ -48,7 +54,7 @@ const getCharacters = async () => {
   // populate DOM with rats
   data.forEach((character) => {
     // create li
-    const $li = $('<li>').text(`${character.name}`);
+    const $li = $('<li>').text(`${character.name }, Strength: ${character.STR}, Agility: ${character.AGL}, Wisdom: ${character.WIL}, Logic: ${character.LOG}, Charisma: ${character.CHA}, Edge: ${character.EDG} `);
     // add a delete button for each rat
     $li.append($("<button>").text("delete").attr("id", character._id).on("click", deleteCharacter));
 
@@ -68,6 +74,12 @@ const createCharater = async () => {
   // create new rat object from form data
   const newCharacter = {
     "name": $characterInput.val(),
+    "STR": $strInput.val(),
+    "AGL": $aglInput.val(),
+    "WIL": $wilInput.val(),
+    "LOG": $logInput.val(),
+    "CHA": $chaInput.val(),
+    "EDG": $edgInput.val()
     // "": $pizzaSelect.val()
   }
 
