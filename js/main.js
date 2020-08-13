@@ -7,6 +7,7 @@ const URL = deployedURL ? deployedURL : "http://localhost:3000";
 //GLOBAL VARIABLES
 //////////////////////
 const $characterInput = $("#createinput");
+const $npcInput = $("#npcinput");
 const $strInput = $("#createSTRinput");
 const $aglInput = $("#createAGLinput");
 const $wilInput = $("#createWILinput");
@@ -74,6 +75,7 @@ const createCharater = async () => {
   // create new rat object from form data
   const newCharacter = {
     "name": $characterInput.val(),
+    "isNPC": $npcInput.val(),
     "STR": $strInput.val(),
     "AGL": $aglInput.val(),
     "WIL": $wilInput.val(),
