@@ -14,11 +14,11 @@ const $wilInput = $("#createWILinput");
 const $logInput = $("#createLOGinput");
 const $chaInput = $("#createCHAinput");
 const $edgInput = $("#createEDGinput");
-const $characterSelect = $("#createselect");
+const $shadowAmpsSelect = $("#createselect");
 // button with the property create
 const $button = $("#createbutton");
 const $nameEditInput = $("#editinput");
-const $characterEditSelect = $("#editselect");
+const $shadowAmpsEditSelect = $("#editselect");
 // button with the property edit
 const $editButton = $("#editbutton");
 const $ul = $("ul");
@@ -27,21 +27,22 @@ const $ul = $("ul");
 //FUNCTIONS
 /////////////////////////////
 //DEFINE FUNCTIONS HERE
+npc = $("#npcinput").checked;
 
 //GET PIZZA FROM API AND POPULATE SELECTOR INPUT
-const getCharactersNpc = async () => {
+const getShadowsAmps = async () => {
   //API CALL USING ASYNC/AWAIT
-  const response = await fetch(`${URL}/character`);
+  const response = await fetch(`${URL}/shadowAmps`);
   const data = await response.json();
 
   //POPULATE SELECTOR WITH RETRIEVED DATA
   // create an option tag for each pizza we collect
-  data.forEach((characters) => {
-      const $option = $('<option>').attr('value', characters._id).text(characters.isNPC)
-      characters.append($option);
+  data.forEach((shadowAmps) => {
+      const $option = $('<option>').attr('value', shadowAmps._id).text(shadowAmps.name)
+      $shadowAmpsSelect.append($option);
 
-      const $option2 = $('<option>').attr('value', characters._id).text(characters.isNPC)
-      $characterEditSelect.append($option2);
+      const $option2 = $('<option>').attr('value', shadowAmps._id).text(shadowAmps.name)
+      $shadowAmpsEditSelect.append($option2);
   });
 };
 
@@ -75,14 +76,14 @@ const createCharater = async () => {
   // create new rat object from form data
   const newCharacter = {
     "name": $characterInput.val(),
-    "isNPC": $npcInput.val(),
+    "isNPC": npc,
     "STR": $strInput.val(),
     "AGL": $aglInput.val(),
     "WIL": $wilInput.val(),
     "LOG": $logInput.val(),
     "CHA": $chaInput.val(),
-    "EDG": $edgInput.val()
-    // "": $pizzaSelect.val()
+    "EDG": $edgInput.val(),
+    "shadowAmps": $shadowAmpsSelect.val()
   }
 
   // send request to API to create rat
@@ -144,7 +145,7 @@ const updatedCharacter = async (event) => {
 // Start executing below
 
 // Get the pizzas for selector
-// getStats();
+getShadowsAmps();
 // initial getting of rats
 getCharacters();
 // add create function to button click event listener
