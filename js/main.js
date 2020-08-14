@@ -63,7 +63,7 @@ const getCharacters = async () => {
     // add an edit button for each rat
     $li.append($('<button>').text("edit").on('click', (event) => {
       $nameEditInput.val(character.name);
-      $characterEditSelect.val(character._id);
+      $shadowAmpsEditSelect.val(character._id);
       $editButton.attr("id", character._id)
     }))
     $ul.append($li)
@@ -119,10 +119,10 @@ const deleteCharacter = async (event) => {
 };
 
 //Update a Rat
-const updatedCharacter = async (event) => {
+const updateCharacter = async (event) => {
   // Create Updated Rat Object
   const updatedCharacter = {
-    name: $nameEditInput.val(),
+    "name": $nameEditInput.val()
     // pizza: $pizzaEditSelect.val()
   }
   // make our put request
@@ -151,4 +151,4 @@ getCharacters();
 // add create function to button click event listener
 $button.on('click', createCharater)
 // add update function to edit submit button
-$editButton.on('click', updatedCharacter)
+$editButton.on('click', updateCharacter)
